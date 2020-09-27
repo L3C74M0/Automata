@@ -12,6 +12,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.StageStyle;
 import model.Automaton;
@@ -114,6 +116,9 @@ public class InterfaceController {
 	
 	@FXML
 	private Button step10;
+	
+    @FXML
+    private ImageView img;
 
 	protected String typeAutomaton;
 	protected int amountOfStates;
@@ -227,7 +232,7 @@ public class InterfaceController {
 	void addToSetR(ActionEvent event) {
 		String temp = r.getText();
 		if (temp.length() == 1) {
-			if (posR <= 10) {
+			if (posR < 10) {
 				setR[posR] = temp.charAt(0);
 				r.setText("");
 
@@ -446,6 +451,7 @@ public class InterfaceController {
 	@FXML
 	void start(ActionEvent event) {
 		automaton.BFS();
+		img.setImage(new Image(getClass().getResourceAsStream("tired.gif")));
 	}
 
 	@FXML

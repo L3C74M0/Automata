@@ -1,22 +1,33 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Automaton {
 	private ArrayList<State> states;
 	private String initialState;
-	private int type; //0 for Mealy 1 for Moore
-	
+	private int type; // 0 for Mealy 1 for Moore
+	private HashMap<String, ArrayList<String>> listConections;
+
 	public Automaton() {
 		states = new ArrayList<>();
 		initialState = "";
+		listConections = new HashMap<String, ArrayList<String>>();
 	}
 
+	/**
+	 * This method adds a state type object to ArrayList<State>
+	 * pre: States should be initialized
+	 * post: A new state has been added to ArrayList<State>
+	 * @param state type State and type of State (0 for Mealy 1 for Moore)
+	 */
 	public void addState(State state, int type) {
 		states.add(state);
 		this.type = type;
 	}
-	
+
 	public ArrayList<State> getStates() {
 		return states;
 	}
@@ -24,24 +35,45 @@ public class Automaton {
 	public void setStates(ArrayList<State> states) {
 		this.states = states;
 	}
-	
+
+	/**
+	 * This method selects the initial state
+	 * post: The initial state has been chosen
+	 * @param String initialState with the name of the initial state
+	 */
 	public void setInitialState(String initialState) {
 		this.initialState = initialState;
 	}
-	
-	/*
-	public void print() {
-		if (type == 0) { //Print Mealy
-			for (int i = 0; i < states.size(); i++) {
-				System.out.println("Nombre: " + states.get(i).getName() + "\tDestino 1: " + states.get(i).getDestiny1() + "\tDestino 2: " + states.get(i).getDestiny2() + 
-						"\tSalida 1: " + states.get(i).getOut1() + "\tSalida 2: " + states.get(i).getOut2() +"\n");
-			}
-		}else {
-			for (int i = 0; i < states.size(); i++) {
-				System.out.println("Nombre: " + states.get(i).getName() + "\tDestino 1: " + states.get(i).getDestiny1() + "\tDestino 2: " + states.get(i).getDestiny2() + 
-						"\tValor del estado: " + states.get(i).getStateValue() +"\n");
+
+	/**
+	 * BFS method removes inaccessible states
+	 * pre: There must be a set of states
+	 * post: Inaccessible states have been removed
+	 */
+	public void BFS() {
+		HashMap<String, Boolean> visited = new HashMap<String, Boolean>();
+		for (int i = 0; i < states.size(); i++) {
+			visited.put(states.get(i).getName() + "", false);
+		}
+
+		Queue<String> queue = new LinkedList<String>();
+		visited.put(initialState, true);
+		queue.add(initialState);
+
+		while (queue.size() != 0) {
+			String temp = queue.poll();
+			for (String state : listConections.get(temp)) {
+				if (!visited.get(state)) {
+					visited.put(state, true);
+					queue.add(state);
+				}
 			}
 		}
-	}	
-	*/
+
+		for (String accesible : visited.keySet()) {
+			if (visited.get(accesible) == false) {
+				listConections.remove(accesible);
+			}
+		}
+	}
 }

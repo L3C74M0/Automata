@@ -8,6 +8,16 @@ public class State {
 	private char out2;// Only for Mealy
 	private char stateValue; // Only for Moore
 
+	/**
+	 * This method is the state constructor
+	 * @param name - State name
+	 * @param destiny1 - State destination according to input 1
+	 * @param destiny2 - State destination according to input 2
+	 * @param out1 - Output value according to input 1 - Only for Mealy
+	 * @param out2 - Output value according to input 2 - Only for Mealy
+	 * @param stateValue - State value - Only for Moore
+	 * @return A state type object has been created
+	 */
 	public State(char name, char destiny1, char destiny2, char out1, char out2, char stateValue) {
 		this.name = name;
 		this.destiny1 = destiny1;
@@ -17,6 +27,8 @@ public class State {
 		this.stateValue = stateValue;
 	}
 
+	//getters and setters
+	
 	public char getName() {
 		return name;
 	}

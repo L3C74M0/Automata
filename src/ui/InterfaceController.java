@@ -409,8 +409,6 @@ public class InterfaceController {
 		
 		step8.setDisable(true);
 		step9.setDisable(true);
-		
-		//automaton.print();
 	}
 
 	@FXML
@@ -446,13 +444,8 @@ public class InterfaceController {
 	}
 
 	@FXML
-	void reset(ActionEvent event) {
-
-	}
-
-	@FXML
 	void start(ActionEvent event) {
-
+		automaton.BFS();
 	}
 
 	@FXML
